@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Profesional: LinkedIn + GitHub para Egresados Técnicos</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        linkedin: {
+                            blue: '#0a66c2',
+                            darkblue: '#004182',
+                            lightbg: '#f3f2ef',
+                            card: '#ffffff',
+                            textdark: '#191919',
+                            textmuted: '#666666'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </title>
+</head>
+<body class="bg-linkedin-lightbg text-linkedin-textdark font-sans antialiased min-h-screen flex flex-col">
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 bg-gray-900 text-white px-5 py-3 rounded-xl shadow-2xl flex items-center space-x-3 text-sm font-medium border border-gray-700">
+        <i class="fa-solid fa-circle-check text-green-400 text-lg"></i>
+        <span id="toast-message">¡Copiado al portapapeles!</span>
+    </div>
+
+    <!-- Header & Progress Bar -->
+    <header class="bg-linkedin-blue text-white shadow-md sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                    <div class="flex items-center space-x-2 text-blue-200 text-xs sm:text-sm font-semibold uppercase tracking-wider mb-1">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        <span>Kit de Empleabilidad para Egresados Técnicos</span>
+                    </div>
+                    <h1 class="text-2xl sm:text-3xl font-bold tracking-tight">Crea tu Perfil Profesional: LinkedIn + GitHub</h1>
+                    <p class="text-blue-100 text-sm mt-1">Guía interactiva paso a paso para dar el salto del secundario técnico al mundo tecnológico profesional.</p>
+                </div>
+                
+                <!-- Progress Box -->
+                <div class="bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 min-w-[240px]">
+                    <div class="flex justify-between items-center text-sm font-medium mb-1.5">
+                        <span class="text-blue-100"><i class="fa-solid fa-chart-line mr-1.5"></i> Progreso General</span>
+                        <span id="progress-text" class="text-white font-bold">0%</span>
+                    </div>
+                    <div class="w-full bg-black/20 rounded-full h-3 overflow-hidden">
+                        <div id="progress-bar" class="bg-green-400 h-3 rounded-full transition-all duration-500 w-0"></div>
+                    </div>
+                    <div class="flex justify-between items-center mt-2 text-xs text-blue-200">
+                        <span id="completed-steps-count">0 de 4 pasos listos</span>
+                        <button onclick="resetProgress()" class="hover:text-white underline transition">Reiniciar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- Left Column: Guide Steps (7 cols) -->
+            <div class="lg:col-span-7 space-y-6">
+                
+                <!-- Intro Card -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
+                    <div class="flex items-start space-x-4">
+                        <div class="bg-blue-50 text-linkedin-blue p-3 rounded-xl text-2xl">
+                            <i class="fa-solid fa-compass"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-lg font-bold text-gray-900">¡Bienvenido, futuro colega!</h2>
+                            <p class="text-sm text-gray-600 mt-1">
+                                Estar a punto de egresar de una escuela técnica te otorga una ventaja enorme: sabes resolver problemas reales con código y tecnología. Esta herramienta te ayudará a traducir tus proyectos escolares y habilidades en un perfil de LinkedIn magnético para reclutadores, respaldado por tu portafolio en GitHub.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PASO 1: Titular y Perfil -->
+                <section id="step-1" class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200 transition-all hover:shadow-md">
+                    <div class="flex items-center justify-between pb-4 border-b border-gray-100">
+                        <div class="flex items-center space-x-3">
+                            <span class="bg-linkedin-blue text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">1</span>
+                            <h2 class="text-lg font-bold text-gray-900">Configuración de Titular y Perfil</h2>
+                        </div>
+                        <label class="flex items-center space-x-2 cursor-pointer bg-gray-50 hover:bg-gray-100 px-3 py-1.5 rounded-lg border border-gray-200 text-sm font-medium transition">
+                            <input type="checkbox" id="check-step-1" onchange="updateProgress()" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                            <span class="text-gray-700">Completado</span>
+                        </label>
+                    </div>
+
+                    <p class="text-sm text-gray-600 my-4">
+                        El titular es lo primero que ven los reclutadores (¡incluso antes de tu foto!). No pongas solo "Estudiante". Destaca tu rol principal y tecnologías clave.
+                    </p>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-gray-500 mb-1">Tu Rol Principal</label>
+                            <select id="role-select" onchange="handleRoleChange()" class="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                                <option value="Desarrollador Junior">Desarrollador Junior (Software/Web)</option>
+                                <option value="Técnico en Informática / Programación">Técnico en Informática / Programación</option>
+                                <option value="Soporte IT & Infraestructura">Soporte IT & Infraestructura</option>
+                                <option value="Analista de Datos Junior">Analista de Datos Junior</option>
+                                <option value="QA Tester Junior">QA Tester Junior</option>
+                                <option value="other">Otro rol personalizado...</option>
+                            </select>
+                        </div>
+
+                        <div id="custom-role-container" class="hidden">
+                            <label class="block text-xs font-semibold uppercase text-gray-500 mb-1">Escribe tu rol</label>
+                            <input type="text" id="custom-role-input" oninput="generateHeadline()" placeholder="Ej: Desarrollador Backend Junior" class="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-gray-500 mb-1">Tecnologías Principales (Selecciona o escribe)</label>
+                            <div class="flex flex-wrap gap-2 mb-2" id="tech-pills">
+                                <button type="button" onclick="toggleTech('Python')" class="tech-pill px-3 py-1.5 rounded-lg text-xs font-medium border border-gray-200 bg-gray-50 text-gray-700 hover:border-blue-400 transition" data-tech="Python">Python</button>
+                                <button type="button" onclick="toggleTech('JavaScript')" class="tech-pill px-3 py-1.5 rounded-lg text-xs font-medium border border-gray-200 bg-gray-50 text-gray-700 hover:border-blue-400 transition" data-tech="JavaScript">JavaScript</button>
+                                <button type="button" onclick="toggleTech('SQL')" class="tech-pill px-3 py-1.5 rounded-lg text-xs font-medium border border-gray-200 bg-gray-50 text-gray-700 hover:border-blue-400 transition" data-tech="SQL">SQL</button>
+                                <button type="button" onclick="toggleTech('HTML/CSS')" class="tech-pill px-3 py-1.5 rounded-lg text-xs font-medium border border-gray-200 bg-gray-50 text-gray-700 hover:border-blue-400 transition" data-tech="HTML/CSS">HTML/CSS</button>
+                                <button type="button" onclick="toggleTech('Git')" class="tech-pill px-3 py-1.5 rounded-lg text-xs font-medium border border-gray-200 bg-gray-50 text-gray-700 hover:border-blue-400 transition" data-tech="Git">Git</button>
+                                <button type="button" onclick="toggleTech('React')" class="tech-pill px-3 py-1.5 rounded-lg text-xs font-medium border border-gray-200 bg-gray-50 text-gray-700 hover:border-blue-400 transition" data-tech="React">React</button>
+                                <button type="button" onclick="toggleTech('Node.js')" class="tech-pill px-3 py-1.5 rounded-lg text-xs font-medium border border-gray-200 bg-gray-50 text-gray-700 hover:border-blue-400 transition" data-tech="Node.js">Node.js</button>
+                                <button type="button" onclick="toggleTech('TypeScript')" class="tech-pill px-3 py-1.5 rounded-lg text-xs font-medium border border-gray-200 bg-gray-50 text-gray-700 hover:border-blue-400 transition" data-tech="TypeScript">TypeScript</button>
+                            </div>
+                            <input type="text" id="extra-tech" oninput="generateHeadline()" placeholder="Otras tecnologías (separadas por coma, ej: C++, Linux, Docker)" class="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        </div>
+
+                        <!-- Generated Headline Output -->
+                        <div class="bg-blue-50/60 border border-blue-200 rounded-xl p-4">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="text-xs font-bold uppercase tracking-wider text-blue-800">Titular Generado para LinkedIn</span>
+                                <button onclick="copyToClipboard('headline-output', '¡Titular copiado al portapapeles!')" class="text-xs bg-linkedin-blue text-white hover:bg-linkedin-darkblue px-3 py-1 rounded-lg transition flex items-center space-x-1.5 font-medium">
+                                    <i class="fa-solid fa-copy"></i>
+                                    <span>Copiar Titular</span>
+                                </button>
+                            </div>
+                            <p id="headline-output" class="text-sm font-semibold text-gray-900 mt-2 bg-white p-3 rounded-lg border border-blue-100 select-all"></p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PASO 2: Redacción del "Acerca de" (Extracto) -->
+                <section id="step-2" class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200 transition-all hover:shadow-md">
+                    <div class="flex items-center justify-between pb-4 border-b border-gray-100">
+                        <div class="flex items-center space-x-3">
+                            <span class="bg-linkedin-blue text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">2</span>
+                            <h2 class="text-lg font-bold text-gray-900">Redacción del "Acerca de" (Extracto)</h2>
+                        </div>
+                        <label class="flex items-center space-x-2 cursor-pointer bg-gray-50 hover:bg-gray-100 px-3 py-1.5 rounded-lg border border-gray-200 text-sm font-medium transition">
+                            <input type="checkbox" id="check-step-2" onchange="updateProgress()" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                            <span class="text-gray-700">Completado</span>
+                        </label>
+                    </div>
+
+                    <p class="text-sm text-gray-600 my-4">
+                        Tu extracto cuenta tu historia: quién eres, qué estudiaste, qué proyectos has desarrollado en la escuela o de forma autodidacta y hacia dónde quieres crecer.
+                    </p>
+
+                    <div class="space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold uppercase text-gray-500 mb-1">Nombre / Apodo Profesional</label>
+                                <input type="text" id="about-name" oninput="generateAbout()" placeholder="Ej: Juan Pérez" class="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold uppercase text-gray-500 mb-1">Escuela Técnica / Especialidad</label>
+                                <input type="text" id="about-school" oninput="generateAbout()" placeholder="Ej: E.E.S.T. N° 4 - Técnico en Informática" class="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-gray-500 mb-1">Proyectos Destacados (Escolares o Personales)</label>
+                            <textarea id="about-projects" oninput="generateAbout()" rows="2" placeholder="Ej: Sistema de gestión de stock en Python y MySQL, aplicación web interactiva en JavaScript..." class="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-gray-500 mb-1">Aspiración Profesional</label>
+                            <input type="text" id="about-goal" oninput="generateAbout()" placeholder="Ej: Busco mi primera experiencia en desarrollo de software para aportar valor y seguir aprendiendo." class="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        </div>
+
+                        <!-- Generated About Output -->
+                        <div class="bg-blue-50/60 border border-blue-200 rounded-xl p-4">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="text-xs font-bold uppercase tracking-wider text-blue-800">Extracto Generado para LinkedIn</span>
+                                <button onclick="copyToClipboard('about-output', '¡Extracto copiado al portapapeles!')" class="text-xs bg-linkedin-blue text-white hover:bg-linkedin-darkblue px-3 py-1 rounded-lg transition flex items-center space-x-1.5 font-medium">
+                                    <i class="fa-solid fa-copy"></i>
+                                    <span>Copiar Extracto</span>
+                                </button>
+                            </div>
+                            <div id="about-output" class="text-sm text-gray-800 mt-2 bg-white p-3 rounded-lg border border-blue-100 whitespace-pre-line select-all leading-relaxed"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PASO 3: Sección de Habilidades (Skills) -->
+                <section id="step-3" class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200 transition-all hover:shadow-md">
+                    <div class="flex items-center justify-between pb-4 border-b border-gray-100">
+                        <div class="flex items-center space-x-3">
+                            <span class="bg-linkedin-blue text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">3</span>
+                            <h2 class="text-lg font-bold text-gray-900">Selección de Habilidades (Skills)</h2>
+                        </div>
+                        <label class="flex items-center space-x-2 cursor-pointer bg-gray-50 hover:bg-gray-100 px-3 py-1.5 rounded-lg border border-gray-200 text-sm font-medium transition">
+                            <input type="checkbox" id="check-step-3" onchange="updateProgress()" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                            <span class="text-gray-700">Completado</span>
+                        </label>
+                    </div>
+
+                    <p class="text-sm text-gray-600 my-4">
+                        LinkedIn permite agregar hasta 50 habilidades. Selecciona las principales herramientas técnicas y blandas que dominaste en tu paso por la escuela técnica.
+                    </p>
+
+                    <div class="space-y-4">
+                        <div>
+                            <span class="block text-xs font-semibold uppercase text-gray-500 mb-2">Habilidades Técnicas y Herramientas</span>
+                            <div class="flex flex-wrap gap-2" id="skill-pills-container">
+                                <!-- Populated via JS -->
+                            </div>
+                        </div>
+
+                        <div class="bg-blue-50/60 border border-blue-200 rounded-xl p-4">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="text-xs font-bold uppercase tracking-wider text-blue-800">Habilidades Seleccionadas (<span id="skill-count">0</span>)</span>
+                                <button onclick="copySkillsList()" class="text-xs bg-linkedin-blue text-white hover:bg-linkedin-darkblue px-3 py-1 rounded-lg transition flex items-center space-x-1.5 font-medium">
+                                    <i class="fa-solid fa-copy"></i>
+                                    <span>Copiar Lista</span>
+                                </button>
+                            </div>
+                            <p id="skills-output" class="text-sm font-medium text-gray-800 mt-2 bg-white p-3 rounded-lg border border-blue-100 min-h-[48px] flex items-center">Ninguna habilidad seleccionada aún.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PASO 4: Conexión con GitHub -->
+                <section id="step-4" class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200 transition-all hover:shadow-md">
+                    <div class="flex items-center justify-between pb-4 border-b border-gray-100">
+                        <div class="flex items-center space-x-3">
+                            <span class="bg-linkedin-blue text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">4</span>
+                            <h2 class="text-lg font-bold text-gray-900">Conexión con GitHub y Portafolio</h2>
+                        </div>
+                        <label class="flex items-center space-x-2 cursor-pointer bg-gray-50 hover:bg-gray-100 px-3 py-1.5 rounded-lg border border-gray-200 text-sm font-medium transition">
+                            <input type="checkbox" id="check-step-4" onchange="updateProgress()" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                            <span class="text-gray-700">Completado</span>
+                        </label>
+                    </div>
+
+                    <p class="text-sm text-gray-600 my-4">
+                        Un perfil de LinkedIn sin enlace a código real pierde fuerza. Tus repositorios de GitHub son tu carta de presentación técnica. Asegúrate de cumplir con estos puntos clave:
+                    </p>
+
+                    <div class="space-y-3 mb-4">
+                        <label class="flex items-start space-x-3 p-3 rounded-xl border border-gray-200 hover:bg-gray-50 cursor-pointer transition">
+                            <input type="checkbox" id="gh-check-1" onchange="updateGitHubChecklist()" class="github-sub-check mt-0.5 w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                            <span class="text-sm text-gray-800"><strong>README.md Prolijo:</strong> Cada repositorio destacado debe tener un README con descripción clara, tecnologías utilizadas e instrucciones de instalación.</span>
+                        </label>
+                        <label class="flex items-start space-x-3 p-3 rounded-xl border border-gray-200 hover:bg-gray-50 cursor-pointer transition">
+                            <input type="checkbox" id="gh-check-2" onchange="updateGitHubChecklist()" class="github-sub-check mt-0.5 w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                            <span class="text-sm text-gray-800"><strong>Código Comentado y Limpio:</strong> Nombres de variables claros y comentarios explicativos que demuestren buenas prácticas aprendidas en la técnica.</span>
+                        </label>
+                        <label class="flex items-start space-x-3 p-3 rounded-xl border border-gray-200 hover:bg-gray-50 cursor-pointer transition">
+                            <input type="checkbox" id="gh-check-3" onchange="updateGitHubChecklist()" class="github-sub-check mt-0.5 w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                            <span class="text-sm text-gray-800"><strong>Demo en Vivo:</strong> Si es una aplicación web, despliégala gratis en GitHub Pages, Vercel o Netlify y coloca el enlace en la descripción del repo.</span>
+                        </label>
+                        <label class="flex items-start space-x-3 p-3 rounded-xl border border-gray-200 hover:bg-gray-50 cursor-pointer transition">
+                            <input type="checkbox" id="gh-check-4" onchange="updateGitHubChecklist()" class="github-sub-check mt-0.5 w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                            <span class="text-sm text-gray-800"><strong>Enlace en LinkedIn:</strong> Añade tu usuario de GitHub en la sección de "Información de contacto" y en la sección "Destacados" de tu perfil.</span>
+                        </label>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-gray-500 mb-1">Tu Usuario o Enlace de GitHub</label>
+                        <div class="flex gap-2">
+                            <input type="text" id="github-url-input" oninput="updatePreviewGitHub()" placeholder="Ej: github.com/tu-usuario" class="flex-grow bg-gray-50 border border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                            <button onclick="copyToClipboard('github-url-input', '¡Enlace de GitHub copiado!')" class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-4 py-2.5 rounded-xl text-sm font-medium transition border border-gray-300">
+                                <i class="fa-solid fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- Right Column: Live Preview & Actions (5 cols) -->
+            <div class="lg:col-span-5">
+                <div class="sticky top-28 space-y-6">
+                    
+                    <!-- Live Preview Card (LinkedIn Style) -->
+                    <div class="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden">
+                        <div class="bg-linkedin-blue px-4 py-2 text-white text-xs font-semibold uppercase tracking-wider flex items-center justify-between">
+                            <span><i class="fa-solid fa-eye mr-1.5"></i> Previsualización en Vivo (LinkedIn)</span>
+                            <span class="bg-white/20 px-2 py-0.5 rounded text-[10px]">Actualización en tiempo real</span>
+                        </div>
+
+                        <!-- LinkedIn Profile Mock Header -->
+                        <div class="relative bg-gray-100 h-24 sm:h-32">
+                            <div class="absolute -bottom-10 left-6 w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-white bg-linkedin-blue text-white flex items-center justify-center font-bold text-2xl sm:text-3xl shadow-md">
+                                <span id="preview-avatar-initials">JT</span>
+                            </div>
+                        </div>
+
+                        <div class="pt-12 px-6 pb-6">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 id="preview-name" class="text-xl font-bold text-gray-900">Tu Nombre Aquí</h3>
+                                    <p id="preview-headline" class="text-sm font-medium text-gray-700 mt-1">Especialidad o Titular Profesional aparecerá aquí...</p>
+                                    <p id="preview-school" class="text-xs text-gray-500 mt-1"><i class="fa-solid fa-graduation-cap mr-1"></i> E.E.S.T. Egresado Técnico</p>
+                                </div>
+                            </div>
+
+                            <!-- GitHub Badge Link in Preview -->
+                            <div id="preview-github-badge" class="mt-4 hidden items-center space-x-2 bg-gray-50 border border-gray-200 px-3 py-2 rounded-xl text-xs font-medium text-gray-700">
+                                <i class="fa-brands fa-github text-gray-900 text-base"></i>
+                                <span id="preview-github-text" class="truncate">github.com/usuario</span>
+                            </div>
+
+                            <!-- About Preview Section -->
+                            <div class="mt-6 pt-4 border-t border-gray-100">
+                                <h4 class="text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">Acerca de</h4>
+                                <p id="preview-about-text" class="text-xs text-gray-700 line-clamp-4 leading-relaxed bg-gray-50 p-3 rounded-xl border border-gray-100">
+                                    Completa el Paso 2 para ver tu extracto profesional aquí en tiempo real...
+                                </p>
+                            </div>
+
+                            <!-- Skills Preview Section -->
+                            <div class="mt-6 pt-4 border-t border-gray-100">
+                                <h4 class="text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">Habilidades Destacadas</h4>
+                                <div id="preview-skills-container" class="flex flex-wrap gap-1.5">
+                                    <span class="text-xs text-gray-400 italic">Selecciona habilidades en el Paso 3</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Global Copy Actions Card -->
+                    <div class="bg-gradient-to-br from-blue-900 to-linkedin-darkblue text-white rounded-2xl p-6 shadow-md">
+                        <h3 class="text-base font-bold mb-2 flex items-center">
+                            <i class="fa-solid fa-bolt text-yellow-400 mr-2"></i> ¿Listo para actualizar tu LinkedIn?
+                        </h3>
+                        <p class="text-xs text-blue-100 mb-4">
+                            Copia todo tu perfil estructurado en un solo clic y pégalo directamente en tu cuenta de LinkedIn.
+                        </p>
+                        <button onclick="copyFullProfile()" class="w-full bg-white text-linkedin-blue hover:bg-blue-50 font-bold py-3 px-4 rounded-xl text-sm transition shadow-sm flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-copy text-base"></i>
+                            <span>Copiar Perfil Completo (Titular + Acerca de + Skills)</span>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-12 py-6 text-center text-xs text-gray-500">
+        <p>Creado con dedicación para estudiantes de escuelas técnicas secundarias. ¡Mucho éxito en tu egreso y futuro profesional! 🚀</p>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Skills List Available
+        const availableSkills = [
+            "Python", "JavaScript", "SQL", "HTML/CSS", "Git", "GitHub", 
+            "React", "Node.js", "TypeScript", "C++", "C#", "Linux", 
+            "Redes y Cableado", "Soporte Técnico", "Arduino", "Base de Datos Relacionales",
+            "Trabajo en Equipo", "Resolución de Problemas", "Comunicación Técnica"
+        ];
+
+        let selectedSkills = new Set();
+
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', () => {
+            renderSkillPills();
+            loadFromLocalStorage();
+            handleRoleChange();
+            generateHeadline();
+            generateAbout();
+            updateProgress();
+        });
+
+        // Render Skill Pills
+        function renderSkillPills() {
+            const container = document.getElementById('skill-pills-container');
+            container.innerHTML = '';
+            availableSkills.forEach(skill => {
+                const isSelected = selectedSkills.has(skill);
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = `px-3 py-1.5 rounded-xl text-xs font-medium border transition flex items-center space-x-1.5 ${
+                    isSelected 
+                        ? 'bg-linkedin-blue text-white border-linkedin-blue shadow-sm' 
+                        : 'bg-gray-50 text-gray-700 border-gray-200 hover:border-blue-400'
+                }`;
+                btn.innerHTML = `<span>${skill}</span> ${isSelected ? '<i class="fa-solid fa-check ml-1"></i>' : ''}`;
+                btn.onclick = () => toggleSkill(skill);
+                container.appendChild(btn);
+            });
+        }
+
+        function toggleSkill(skill) {
+            if (selectedSkills.has(skill)) {
+                selectedSkills.delete(skill);
+            } else {
+                selectedSkills.add(skill);
+            }
+            renderSkillPills();
+            updateSkillsOutput();
+            updatePreviewSkills();
+            saveToLocalStorage();
+        }
+
+        function toggleTech(tech) {
+            // Find tech button
+            const pills = document.querySelectorAll('#tech-pills button');
+            pills.forEach(btn => {
+                if (btn.getAttribute('data-tech') === tech) {
+                    btn.classList.toggle('bg-linkedin-blue');
+                    btn.classList.toggle('text-white');
+                    btn.classList.toggle('border-blue-600');
+                    btn.classList.toggle('bg-gray-50');
+                    btn.classList.toggle('text-gray-700');
+                    btn.classList.toggle('border-gray-200');
+                }
+            });
+            generateHeadline();
+            saveToLocalStorage();
+        }
+
+        function handleRoleChange() {
+            const select = document.getElementById('role-select');
+            const customContainer = document.getElementById('custom-role-container');
+            if (select.value === 'other') {
+                customContainer.classList.remove('hidden');
+            } else {
+                customContainer.classList.add('hidden');
+            }
+            generateHeadline();
+            saveToLocalStorage();
+        }
+
+        function generateHeadline() {
+            const roleSelect = document.getElementById('role-select');
+            let role = roleSelect.value;
+            if (role === 'other') {
+                role = document.getElementById('custom-role-input').value.trim() || 'Desarrollador Junior';
+            }
+
+            // Gather active tech pills
+            const activeTechs = [];
+            document.querySelectorAll('#tech-pills button').forEach(btn => {
+                if (btn.classList.contains('bg-linkedin-blue')) {
+                    activeTechs.push(btn.getAttribute('data-tech'));
+                }
+            });
+
+            const extraTech = document.getElementById('extra-tech').value.trim();
+            if (extraTech) {
+                activeTechs.push(extraTech);
+            }
+
+            const techString = activeTechs.length > 0 ? activeTechs.join(' • ') : 'Python • JavaScript • SQL';
+            const headline = `🚀 Egresado Técnico | ${role} | Apasionado por la tecnología | ${techString}`;
+
+            document.getElementById('headline-output').textContent = headline;
+            document.getElementById('preview-headline').textContent = headline;
+            saveToLocalStorage();
+        }
+
+        function generateAbout() {
+            const name = document.getElementById('about-name').value.trim() || '[Tu Nombre]';
+            const school = document.getElementById('about-school').value.trim() || '[Tu Escuela Técnica y Especialidad]';
+            const projects = document.getElementById('about-projects').value.trim() || 'sistemas de gestión, aplicaciones web y proyectos de automatización';
+            const goal = document.getElementById('about-goal').value.trim() || 'continuar creciendo profesionalmente y aportar valor en equipos de tecnología.';
+
+            const aboutText = `Soy ${name}, técnico egresado de ${school}. A lo largo de mi formación secundaria, he desarrollado sólidos conocimientos técnicos y capacidad para resolver problemas mediante la práctica constante y el desarrollo de proyectos como ${projects}.
+
+            Me apasiona la tecnología, el código limpio y el aprendizaje continuo. Cuento con experiencia utilizando herramientas como Git, bases de datos y lenguajes de programación modernos.
+            
+            Actualmente me encuentro en la búsqueda de mi primera oportunidad profesional como ${document.getElementById('role-select').value === 'other' ? 'Junior' : document.getElementById('role-select').value}, con el objetivo de ${goal}`;
+
+            document.getElementById('about-output').textContent = aboutText;
+            document.getElementById('preview-about-text').textContent = aboutText;
+
+            // Update Name preview
+            document.getElementById('preview-name').textContent = name !== '[Tu Nombre]' ? name : 'Tu Nombre Aquí';
+            
+            // Initials for avatar
+            if (name !== '[Tu Nombre]' && name.length > 0) {
+                const parts = name.split(' ');
+                let initials = parts[0][0];
+                if (parts.length > 1) initials += parts[1][0];
+                document.getElementById('preview-avatar-initials').textContent = initials.toUpperCase();
+            } else {
+                document.getElementById('preview-avatar-initials').textContent = 'JT';
+            }
+
+            // School preview
+            document.getElementById('preview-school').innerHTML = `<i class="fa-solid fa-graduation-cap mr-1"></i> ${school !== '[Tu Escuela Técnica y Especialidad]' ? school : 'E.E.S.T. Egresado Técnico'}`;
+
+            saveToLocalStorage();
+        }
+
+        function updateSkillsOutput() {
+            const count = selectedSkills.size;
+            document.getElementById('skill-count').textContent = count;
+            const output = document.getElementById('skills-output');
+            if (count === 0) {
+                output.textContent = 'Ninguna habilidad seleccionada aún.';
+                output.className = 'text-sm font-medium text-gray-400 mt-2 bg-white p-3 rounded-lg border border-blue-100 min-h-[48px] flex items-center italic';
+            } else {
+                const skillsArray = Array.from(selectedSkills);
+                output.textContent = skillsArray.join(' • ');
+                output.className = 'text-sm font-medium text-gray-800 mt-2 bg-white p-3 rounded-lg border border-blue-100 min-h-[48px] flex items-center';
+            }
+        }
+
+        function updatePreviewSkills() {
+            const container = document.getElementById('preview-skills-container');
+            container.innerHTML = '';
+            if (selectedSkills.size === 0) {
+                container.innerHTML = '<span class="text-xs text-gray-400 italic">Selecciona habilidades en el Paso 3</span>';
+                return;
+            }
+            selectedSkills.forEach(skill => {
+                const badge = document.createElement('span');
+                badge.className = 'bg-gray-100 text-gray-800 border border-gray-200 text-[11px] font-medium px-2.5 py-1 rounded-lg';
+                badge.textContent = skill;
+                container.appendChild(badge);
+            });
+        }
+
+        function updatePreviewGitHub() {
+            const url = document.getElementById('github-url-input').value.trim();
+            const badge = document.getElementById('preview-github-badge');
+            const text = document.getElementById('preview-github-text');
+            if (url) {
+                badge.classList.remove('hidden');
+                badge.classList.add('flex');
+                text.textContent = url;
+            } else {
+                badge.classList.add('hidden');
+                badge.classList.remove('flex');
+            }
+            saveToLocalStorage();
+        }
+
+        function updateGitHubChecklist() {
+            const subs = document.querySelectorAll('.github-sub-check');
+            let allChecked = true;
+            subs.forEach(sub => {
+                if (!sub.checked) allChecked = false;
+            });
+            // If all 4 sub-checks are checked, auto check step 4
+            document.getElementById('check-step-4').checked = allChecked;
+            updateProgress();
+            saveToLocalStorage();
+        }
+
+        function updateProgress() {
+            let completed = 0;
+            if (document.getElementById('check-step-1').checked) completed++;
+            if (document.getElementById('check-step-2').checked) completed++;
+            if (document.getElementById('check-step-3').checked) completed++;
+            if (document.getElementById('check-step-4').checked) completed++;
+
+            const percentage = (completed / 4) * 100;
+            document.getElementById('progress-bar').style.width = percentage + '%';
+            document.getElementById('progress-text').textContent = percentage + '%';
+            document.getElementById('completed-steps-count').textContent = completed + ' de 4 pasos listos';
+            saveToLocalStorage();
+        }
+
+        function resetProgress() {
+            document.getElementById('check-step-1').checked = false;
+            document.getElementById('check-step-2').checked = false;
+            document.getElementById('check-step-3').checked = false;
+            document.getElementById('check-step-4').checked = false;
+            document.querySelectorAll('.github-sub-check').forEach(c => c.checked = false);
+            updateProgress();
+            localStorage.clear();
+            showToast('Progreso reiniciado.');
+        }
+
+        function copyToClipboard(elementId, successMessage) {
+            let text = '';
+            const el = document.getElementById(elementId);
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                text = el.value;
+            } else {
+                text = el.innerText;
+            }
+
+            if (!text.trim()) {
+                showToast('No hay contenido para copiar.');
+                return;
+            }
+
+            navigator.clipboard.writeText(text).then(() => {
+                showToast(successMessage);
+            }).catch(err => {
+                showToast('Error al copiar al portapapeles.');
+            });
+        }
+
+        function copySkillsList() {
+            if (selectedSkills.size === 0) {
+                showToast('Selecciona al menos una habilidad.');
+                return;
+            }
+            const text = Array.from(selectedSkills).join(', ');
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('¡Habilidades copiadas al portapapeles!');
+            });
+        }
+
+        function copyFullProfile() {
+            const headline = document.getElementById('headline-output').innerText;
+            const about = document.getElementById('about-output').innerText;
+            const skills = Array.from(selectedSkills).join(', ');
+
+            const fullText = `=== TITULAR ===\n${headline}\n\n=== ACERCA DE ===\n${about}\n\n=== HABILIDADES ===\n${skills}`;
+
+            navigator.clipboard.writeText(fullText).then(() => {
+                showToast('¡Perfil completo copiado al portapapeles!');
+            });
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').textContent = message;
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 3000);
+        }
+
+        // LocalStorage Save & Load
+        function saveToLocalStorage() {
+            const data = {
+                roleSelect: document.getElementById('role-select').value,
+                customRole: document.getElementById('custom-role-input').value,
+                extraTech: document.getElementById('extra-tech').value,
+                aboutName: document.getElementById('about-name').value,
+                aboutSchool: document.getElementById('about-school').value,
+                aboutProjects: document.getElementById('about-projects').value,
+                aboutGoal: document.getElementById('about-goal').value,
+                githubUrl: document.getElementById('github-url-input').value,
+                selectedSkills: Array.from(selectedSkills),
+                check1: document.getElementById('check-step-1').checked,
+                check2: document.getElementById('check-step-2').checked,
+                check3: document.getElementById('check-step-3').checked,
+                check4: document.getElementById('check-step-4').checked,
+                gh1: document.getElementById('gh-check-1').checked,
+                gh2: document.getElementById('gh-check-2').checked,
+                gh3: document.getElementById('gh-check-3').checked,
+                gh4: document.getElementById('gh-check-4').checked,
+                techPillsState: Array.from(document.querySelectorAll('#tech-pills button')).map(b => b.classList.contains('bg-linkedin-blue'))
+            };
+            localStorage.setItem('linkedin_guide_data', JSON.stringify(data));
+        }
+
+        function loadFromLocalStorage() {
+            const saved = localStorage.getItem('linkedin_guide_data');
+            if (!saved) return;
+            try {
+                const data = JSON.parse(saved);
+                if (data.roleSelect) document.getElementById('role-select').value = data.roleSelect;
+                if (data.customRole) document.getElementById('custom-role-input').value = data.customRole;
+                if (data.extraTech) document.getElementById('extra-tech').value = data.extraTech;
+                if (data.aboutName) document.getElementById('about-name').value = data.aboutName;
+                if (data.aboutSchool) document.getElementById('about-school').value = data.aboutSchool;
+                if (data.aboutProjects) document.getElementById('about-projects').value = data.aboutProjects;
+                if (data.aboutGoal) document.getElementById('about-goal').value = data.aboutGoal;
+                if (data.githubUrl) document.getElementById('github-url-input').value = data.githubUrl;
+
+                if (data.selectedSkills) {
+                    selectedSkills = new Set(data.selectedSkills);
+                }
+
+                if (data.check1 !== undefined) document.getElementById('check-step-1').checked = data.check1;
+                if (data.check2 !== undefined) document.getElementById('check-step-2').checked = data.check2;
+                if (data.check3 !== undefined) document.getElementById('check-step-3').checked = data.check3;
+                if (data.check4 !== undefined) document.getElementById('check-step-4').checked = data.check4;
+
+                if (data.gh1 !== undefined) document.getElementById('gh-check-1').checked = data.gh1;
+                if (data.gh2 !== undefined) document.getElementById('gh-check-2').checked = data.gh2;
+                if (data.gh3 !== undefined) document.getElementById('gh-check-3').checked = data.gh3;
+                if (data.gh4 !== undefined) document.getElementById('gh-check-4').checked = data.gh4;
+
+                if (data.techPillsState) {
+                    const pills = document.querySelectorAll('#tech-pills button');
+                    pills.forEach((btn, idx) => {
+                        if (data.techPillsState[idx]) {
+                            btn.classList.add('bg-linkedin-blue', 'text-white', 'border-blue-600');
+                            btn.classList.remove('bg-gray-50', 'text-gray-700', 'border-gray-200');
+                        }
+                    });
+                }
+
+                updateSkillsOutput();
+                updatePreviewSkills();
+                updatePreviewGitHub();
+                updateProgress();
+            } catch (e) {
+                console.error("Error loading saved progress", e);
+            }
+        }
+    </script>
+</body>
+</html>
